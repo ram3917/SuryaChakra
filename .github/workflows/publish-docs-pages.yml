@@ -13,6 +13,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: suryaautomobiles-docs
 
     steps:
       - name: Checkout repository
@@ -38,14 +41,14 @@ jobs:
 
       - name: Configure PlantUML
         run: |
-          mkdir -p docs/_build
+          mkdir -p _build
           cat > docs/_plantuml_conf.py <<'PY'
           plantuml = 'java -jar /usr/local/bin/plantuml.jar'
           PY
 
       - name: Build Sphinx HTML
         run: |
-          sphinx-build -b html docs docs/_build/html
+          sphinx-build -b html . _build/html
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
@@ -53,7 +56,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          path: docs/_build/html
+          path: suryaautomobiles-docs/_build/html
 
   deploy:
     needs: build
