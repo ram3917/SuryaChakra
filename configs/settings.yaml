@@ -1,0 +1,87 @@
+# SuryaChakra Project Configuration
+# Database and Data Settings
+database:
+  path: "data/processed/surya.db"
+  timeout: 30
+  check_same_thread: false
+
+# Auto Stock & Retrofit Agent Configuration
+agent_auto_stock:
+  enabled: true
+  description: "Auto stock & retrofit potential agent"
+  min_age_years: 10
+  retrofit_cost:
+    min: 75000
+    max: 90000
+  subsidies:
+    amount: 15000
+  policy_capacity:
+    state_total: 120000
+    hyderabad_orr_new_ev: 20000
+    hyderabad_orr_new_lpg: 10000
+    hyderabad_orr_new_cng: 10000
+    hyderabad_orr_retrofit: 25000
+    # Direct CSV download link for the Telangana RTA vehicle registrations dataset.
+  # You’ll get this from the Telangana Open Data portal (e.g., a `?download=1` link).
+  rta_csv_url: "https://data.telangana.gov.in/path/to/telangana_rta_vehicle_registrations.csv"
+
+# DC Charger Locator Agent Configuration
+agent_dc_charger:
+  enabled: true
+  description: "Public DC charging locator agent"
+  min_power_kw: 15
+  connector_types:
+    - "Bharat DC"
+    - "CCS"
+    - "CHAdeMO"
+
+# Usage Pattern Agent Configuration
+agent_usage_pattern:
+  enabled: true
+  description: "Usage pattern & duty-cycle agent"
+  typical_km_per_day_min: 80
+  typical_km_per_day_max: 140
+  hours_per_day_min: 8
+  hours_per_day_max: 12
+
+# CO2 & Cost Comparison Agent Configuration
+agent_cost_comparison:
+  enabled: true
+  description: "CO2 and cost-comparison agent"
+  retrofit_kit:
+    capacity_kwh_min: 4
+    capacity_kwh_max: 8
+    total_cost_min: 120000
+    total_cost_max: 200000
+  emission_factors:
+    petrol_co2_per_litre: 2.31
+    diesel_co2_per_litre: 2.68
+    cng_co2_per_kg: 2.75
+
+# Location/Geography Settings
+geography:
+  city: "Hyderabad"
+  zones:
+    - name: "inside_orr"
+      description: "Inside Outer Ring Road"
+    - name: "outside_orr"
+      description: "Outside Outer Ring Road"
+
+# Data Export Settings
+export:
+  csv_delimiter: ","
+  date_format: "%Y-%m-%d"
+  output_directory: "outputs"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/surya_chakra.log"
+
+# Orchestration Schedule
+orchestration:
+  auto_stock_agent_frequency: "weekly"
+  dc_charger_agent_frequency: "daily"
+  cost_comparison_agent_frequency: "weekly"
+  price_update_frequency: "weekly"

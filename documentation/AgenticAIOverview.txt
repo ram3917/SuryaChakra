@@ -1,0 +1,167 @@
+1. The questions your agents must answer
+For refurbished ICE → EV autos (no swapping, DC charging focus), your system should answer:
+
+How many autos can realistically become EVs (by age, permits, policy caps)?
+
+How do these autos operate daily (km/day, working hours, routes)?
+
+Where are public DC chargers located in Hyderabad (especially within ORR), and how dense is coverage in auto-heavy zones?
+
+If an auto switches from petrol/CNG to EV, how much CO₂ is avoided and what is the running-cost saving per km/month?
+
+Each agent is “responsible” for one of these dimensions.
+
+2. Agent 1 – Auto stock & retrofit potential agent
+Goal: Build a clean dataset of how many autos exist and how many can/are being converted.
+
+Key inputs and sources
+
+State plans to retrofit around 1.2–1.26 lakh ICE autos with electric kits, with up to 100% subsidy for drivers under a “Telangana Auto EV Subsidy” scheme.
+
+Within Hyderabad ORR limits, GO 263 permits 40,000 new eco‑friendly autos:
+
+20,000 electric
+
+10,000 LPG
+
+10,000 CNG
+
+Plus 25,000 retrofitted petrol/diesel autos to eco‑friendly variants.
+
+Earlier subsidy guidelines targeted old autos (10+ years) with ₹15,000 per vehicle against a retrofit cost of ₹75,000–₹90,000.
+
+What the agent does
+
+Scrapes / queries:
+
+Telangana Transport / CFST / RTAs for auto-rickshaw registrations and permits in Hyderabad + ORR.
+
+Policy docs and GO summaries that specify caps, age limits, and retrofit eligibility.
+
+Normalizes into a autos_hyd table with columns like:
+
+year_of_registration, fuel_type, age_band, location_zone (inside ORR / outside), is_retrofittable, permit_type.
+
+Questions it answers
+
+“How many 10+ year old petrol/diesel autos are there within ORR that can be retrofitted?”
+
+“Given current schemes, what is the max addressable market for refurbished EV autos?”
+
+3. Agent 2 – Usage pattern & duty-cycle agent
+Goal: Capture how refurbished EV autos actually work day-to-day.
+
+Key ideas and sources
+
+Studies and guidebooks on Indian auto-rickshaws show typical urban e‑auto duty cycles: 80–140 km per day, 8–12 hours on road, with a mix of short trips, waiting time, and a few longer hauls.
+
+Local pilots (e.g., e‑autos at Kacheguda railway station) demonstrate common station-based use cases and shift timings.
+
+What the agent does
+
+Collects from:
+
+Literature and case studies (WRI e‑auto guidebook, Hyderabad electric mobility study) for baseline km/day and load factors.
+
+If you add your own survey later (Google Forms or in-person), this agent ingests CSVs of real driver data (km/day, trips/day, breaks, preferred stands).
+
+Writes into an auto_usage_profiles table with fields such as:
+
+segment (refurbished_EV_auto), km_per_day, hours_per_day, days_per_month, energy_use_kwh_per_km, typical_routes (as simple IDs or corridor labels).
+
+Questions it answers
+
+“Do refurbished EV autos need 1 or 2 DC charge sessions per day without SuryaChakra?”
+
+“What fraction of their shift is realistically under sun and available for solar top-up?”
+
+4. Agent 3 – Public DC charging locator agent
+Goal: Map where public DC chargers are, so you can match infrastructure to auto demand.
+
+Key inputs and sources
+
+TGREDCO / GHMC lists of sanctioned and installed EV chargers: many are on government land, ORR entry/exit points, bus stops, parks, substations, etc.
+
+City news lists show specific charger locations (e.g., Nagole Track DC Charger, Mother Teresa Statue DC Charger, Saroornagar Stadium DC Charger).
+
+Aggregator maps (e‑AMRIT, CPO / directory sites) provide more DC fast-charger points and coordinates.
+
+What the agent does
+
+Scrapes these lists / APIs and geocodes addresses to lat/long.
+
+Filters for DC chargers only (Bharat DC‑001, CCS, CHAdeMO, etc., and power ≥ 15 kW).
+
+Writes into dc_chargers_hyd with:
+
+lat, lon, power_kw, connector_type, operator, location_type (park, RTO, petrol pump, mall, roadside), zone (inside ORR / outside).
+
+Questions it answers
+
+“Where are DC chargers relative to dense auto operating zones?”
+
+“Which auto corridors are poorly served by DC charging?”
+
+5. Agent 4 – CO₂ and cost-comparison agent
+Goal: Quantify CO₂ avoided and cost savings when an old ICE auto becomes a refurbished EV auto charged on DC.
+
+Key inputs and assumptions
+
+Retrofit kits are typically 4–8 kWh, with total conversion costs ₹1.2–2 lakh per auto; state is planning up to 100% subsidy.
+
+FAME / national documents give standard emission factors and guidance for EV charging vs petrol/CNG (kg CO₂ per litre of fuel vs per kWh grid electricity).
+
+What the agent does
+
+Maintains reference tables:
+
+emission_factors – e.g., kg CO₂/litre petrol, kg CO₂/kg CNG, kg CO₂/kWh (Telangana grid).
+
+tariffs – local fuel prices and EV charging tariffs (Rs/litre, Rs/kg, Rs/kWh, DC fast-charging rates).
+
+Joins with auto_usage_profiles to compute:
+
+Daily and monthly fuel use and cost for ICE auto.
+
+Daily and monthly kWh and charging cost for refurbished EV auto.
+
+CO₂ avoided = baseline ICE emissions − EV charging emissions.
+
+Questions it answers
+
+“For a typical refurbished EV auto (100 km/day), how many kg of CO₂ are avoided per year vs petrol?”
+
+“What is the per‑km and per‑month cost saving in rupees?”
+
+This is where you can plug in SuryaChakra later: adding solar energy reduces kWh taken from grid DC chargers, further lowering CO₂ and cost.
+
+6. Orchestration overview – how the agents work together
+A simple, robust workflow for now:
+
+Nightly data refresh
+
+Auto stock agent runs once a week (policy and registration numbers don’t change daily).
+
+DC charger agent runs nightly to catch newly listed chargers.
+
+CO₂ / price agent updates fuel and electricity prices daily or weekly.
+
+Weekly analysis job
+
+Reads from autos_hyd, auto_usage_profiles, dc_chargers_hyd, emission_factors, and tariffs.
+
+Produces:
+
+Zone‑wise “EV‑auto potential vs DC charger density” table.
+
+Per‑auto and fleet‑level CO₂ and cost comparison results.
+
+Exports these as CSVs and some standard plots/maps for your SuryaChakra deck.
+
+Map creation
+
+A geospatial script (or notebook) uses autos_hyd + dc_chargers_hyd to generate:
+
+Heatmaps of auto density and retrofittable ICE autos.
+
+DC charger locations and coverage rings (e.g., 1 km radius) overlaid.

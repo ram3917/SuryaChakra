@@ -1,0 +1,130 @@
+city: Hyderabad
+state: Telangana
+
+database_path: data/processed/surya.sqlite
+
+sources:
+
+  # 1) Policy & framework docs – caps, incentives, retrofit rules
+  policy:
+    telangana_ev_policy:
+      url: "https://www.transportpolicy.net/wp-content/uploads/2021/08/Telangana_Final_EV-policy_2020.pdf"   # TS EV & ESS Policy 2020–2030 [web:107]
+      type: pdf
+      purpose: "State EV targets, incentives for 3-wheelers, retrofit subsidy caps"
+
+    telangana_ev_ess_update:
+      url: "https://startup.telangana.gov.in/wp-content/uploads/2025/02/TS-EV-ESS-Policy-1.pdf"              # Later EV/ESS policy file [web:95]
+      type: pdf
+      purpose: "Updated incentives and caps, financing schemes for e-autos and retrofits"
+
+    retrofit_framework:
+      url: "https://www.nrdc.org/sites/default/files/2024-06/ev-retrofitment-telangana-framework-20240619.pdf"  # Retrofitting framework [web:103]
+      type: pdf
+      purpose: "Detailed framework for 3W retrofitting: eligibility, age, process"
+
+    threewheeler_case_study:
+      url: "https://cleanmobilityshift.com/policy-regulation/electrification-of-three-wheelers-via-retrofitting-the-telangana-case-study/"
+      type: html
+      purpose: "Narrative + numbers on Telangana 3W retrofit pilot, targets and costs"  # [web:87]
+
+  # 2) Auto permits / eco-friendly autos within ORR (Hyderabad focus)
+  autos_policy_hyd:
+    orr_65k_eco_autos_news:
+      url: "https://www.newindianexpress.com/cities/hyderabad/2025/Jun/08/hyderabad-to-get-65000-new-eco-friendly-autos-as-telangana-lifts-diesel-ban"
+      type: html
+      purpose: "Breakdown of 65k eco-friendly autos (20k electric, 10k CNG, 10k LPG, 25k retrofits) within ORR"  # [web:67]
+
+    orr_65k_eco_autos_local:
+      url: "https://www.metroindia.net/news/articlenews/-eco-friendly-autos-to-hit-hyd-roads-under-new-policy-26207"
+      type: html
+      purpose: "Local reporting on the same 65k eco-auto policy; cross-check numbers"  # [web:104]
+
+    orr_permit_guidelines:
+      url: "https://timesofindia.indiatimes.com/city/hyderabad/nod-for-40000-new-eco-friendly-autos-within-orr-limits/articleshow/121698293.cms"
+      type: html
+      purpose: "Detailed guidelines on permits within ORR: fuel types allowed, first-come-first-served rules"  # [web:70][web:98]
+
+    retrofit_10yr_old_autos:
+      url: "https://www.newindianexpress.com/states/telangana/2021/Dec/10/telangana-govt-to-offer-rs-15000for-converting-auto-rickshaws-into-electric-vehicles"
+      type: html
+      purpose: "Earlier scheme: ₹15k incentive, age >10 years, emission criteria for retrofit"  # [web:89]
+
+  # 3) Large retrofit target announcements (1.2–2 lakh autos)
+  retrofit_targets:
+    lakh_plus_retrofit_plan:
+      url: "https://newsarenaindia.com/states/t-gana-plans-green-shift-1-20l-rickshaws-to-get-electric-kits/72202"
+      type: html
+      purpose: "Plan to retrofit ~1.26 lakh rickshaws with EV kits; budget and phasing"  # [web:76]
+
+    full_subsidy_auto_ev:
+      url: "https://munsifdaily.com/telangana-govt-plans-100-subsidy-for-ev-kits/"
+      type: html
+      purpose: "Proposal for 100% subsidy for EV conversion kits; ~1.26 lakh autos, ₹200 crore budget"  # [web:82]
+
+    cm_2_lakh_retrofit_statement:
+      url: "https://www.instagram.com/reel/DYFi4lNEdOH/" 
+      type: html
+      purpose: "CM statement on converting up to 2 lakh diesel autos to EV via retrofitting in GHMC"  # [web:94]
+
+  # 4) State-level auto & 3W statistics (for baseline counts)
+  vehicle_stats:
+    nrdc_threewheelers_article:
+      url: "https://www.nrdc.org/bio/sameer-kwatra/electric-three-wheelers-charge-ahead-telangana"
+      type: html
+      purpose: "Overall Telangana 3W counts, EV share, policy incentives summary"  # [web:91]
+
+    telangana_3w_retrofit_blog:
+      url: "https://inverted.in/blog/telangana-govt-promoting-ev-retrofitting-to-minimizing-the-carbon-emission"
+      type: html
+      purpose: "Blog summarizing state retrofit push, costs, and subsidy; numbers to cross-check"  # [web:100]
+
+  # 5) Hyderabad EV mobility / usage context
+  mobility_studies:
+    hyd_mobility_study:
+      url: "https://backend.orbit.dtu.dk/ws/portalfiles/portal/141857029/UMI_Electric_Mobility_Hyderabad_Final.pdf"
+      type: pdf
+      purpose: "Study of electric mobility options in Hyderabad: EV adoption, corridors, 3W context"  # [web:74]
+
+    wri_eauto_guidebook:
+      url: "https://wri-india.org/sites/default/files/E-auto-guidebook_WRI-India.pdf"
+      type: pdf
+      purpose: "Duty-cycle/usage patterns and planning framework for electric auto-rickshaws"  # [web:77]
+
+  # 6) Public DC charging infrastructure – locations and specs
+  charging:
+    hyd_siting_charging_stations:
+      url: "https://www.eqmagpro.com/charging-ahead-siting-ev-charging-stations-in-hyderabad-india/"
+      type: html
+      purpose: "Background and sample location data for siting EV charging stations in Hyderabad"  # [web:18]
+
+    tgredco_goi_sanctioned_evcs:
+      url: "https://tgredco.telangana.gov.in/GOISanctionedEVCS.aspx"
+      type: html
+      purpose: "List of GOI-sanctioned EV charging stations in Telangana; many around Hyderabad"  # [web:69]
+
+    ghmc_charging_points_news:
+      url: "https://www.metroindia.net/news/articlenews/ghmc-sets-up-ev-charging-points-in-hyderabad-20451"
+      type: html
+      purpose: "GHMC-installed public charging points in Hyderabad, often including DC chargers"  # [web:81]
+
+    hyd_dc_directory_example:
+      url: "https://carhp.in/charging-station/hyderabad"
+      type: html
+      purpose: "Directory-style listing of EV charging stations (CCS, CHAdeMO, etc.) with map links"  # [web:83]
+
+    national_evamrit_map:
+      url: "https://e-amrit.niti.gov.in/charging-map"
+      type: html
+      purpose: "National charging map; source for verifying some Hyderabad public stations"  # [web:56]
+
+  # 7) CO2 and grid context (for later CO2/cost agent)
+  emissions_and_grid:
+    ev_charging_infra_fame2:
+      url: "https://www.niti.gov.in/sites/default/files/2023-05/Final-smaller_Electric-Vehicles-Charging-Infrastructure.pdf"
+      type: pdf
+      purpose: "Guidance on EV charging infra, grid emission factors, typical assumptions"  # [web:68]
+
+    lastmile_3w_electrification:
+      url: "https://aeee.in/electrifying-last-mile-mobility-overcoming-challenges-and-boosting-adoption-of-electric-3-wheelers/"
+      type: html
+      purpose: "Nationwide view on 3W electrification, costs and emission benchmarks"  # [web:101]

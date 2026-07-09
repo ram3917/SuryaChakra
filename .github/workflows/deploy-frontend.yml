@@ -1,0 +1,31 @@
+# .github/workflows/deploy-frontend.yml
+name: Build and Deploy Frontend
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "public/**"
+      - "frontend/**"
+      - ".github/workflows/deploy-frontend.yml"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install and build
+        working-directory: frontend
+        run: |
+          npm install
+          npm run build
+
+      # Example: deploy to GitHub Pages, Vercel, etc.
+      # For GitHub Pages, you'd add pages deploy steps here.

@@ -1,0 +1,9 @@
+product: SuryaAutomobiles
+area: range-extenders
+requirements:
+  - id: RE-001
+    title: Define range extender concept
+    description: Capture the intended value proposition and operating assumptions.
+  - id: RE-002
+    title: Capture performance targets
+    description: Document expected daily range gain and reliability targets.

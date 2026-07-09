@@ -1,0 +1,9 @@
+product: SuryaAutomobiles
+area: retrofit-kits
+requirements:
+  - id: RK-001
+    title: Define retrofit kit scope
+    description: Capture the target vehicle set and installation workflow.
+  - id: RK-002
+    title: Document compatibility assumptions
+    description: Note vehicle-specific assumptions and constraints.

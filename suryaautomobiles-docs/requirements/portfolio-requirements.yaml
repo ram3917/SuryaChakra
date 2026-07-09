@@ -1,0 +1,12 @@
+product: SuryaAutomobiles
+area: portfolio
+requirements:
+  - id: PR-001
+    title: Define product vision
+    description: Capture the purpose, users, and value proposition.
+  - id: PR-002
+    title: Define roadmap
+    description: Establish phases from validation to scale.
+  - id: PR-003
+    title: Maintain product matrix
+    description: Track product variants and shared assumptions.

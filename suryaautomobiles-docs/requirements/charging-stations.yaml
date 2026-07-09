@@ -1,0 +1,15 @@
+product: SuryaAutomobiles
+area: charging-stations
+requirements:
+  - id: CS-001
+    title: Document scope
+    description: Capture the problem space, stakeholders, and boundaries.
+  - id: CS-002
+    title: Record requirements
+    description: Gather functional and non-functional requirements.
+  - id: CS-003
+    title: Describe architecture
+    description: Summarize system structure and deployment assumptions.
+  - id: CS-004
+    title: Capture verification plan
+    description: Define testing and acceptance criteria.
