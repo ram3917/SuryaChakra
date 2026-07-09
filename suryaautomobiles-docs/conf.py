@@ -3,7 +3,8 @@ author = 'SuryaExtend Team'
 extensions = [
     'myst_parser',
 ]
-html_theme = 'alabaster'
+root_doc = 'index'
+html_theme = 'furo'
 source_suffix = {
     '.rst': 'restructuredtext',
     '.md': 'markdown',
