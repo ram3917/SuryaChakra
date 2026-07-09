@@ -1,11 +1,21 @@
-# SuryaAutomobiles Docs
+# Surya Chakra Docs
 
-This site collects the product, engineering, and operations documentation for the SuryaAutomobiles program.
+This site collects the product, engineering, and operations documentation for the Surya Chakra program.
 
-## Sections
+![Surya Chakra logo](../suryachakra_logo.jpeg)
 
-- [Charging Stations](docs/charging-stations/01-scope.md)
-- [Portfolio](docs/portfolio/vision.md)
-- [Range Extenders](docs/range-extenders/README.md)
-- [Retrofit Kits](docs/retrofit-kits/README.md)
-- [Shared Knowledge](docs/shared/safety.md)
+## Main products
+
+- [Retrofit Kits](docs/retrofit-kits/README.md) — active product guide.
+- Charging Stations — draft concept, hidden from the main navigation.
+- Range Extenders — draft concept, hidden from the main navigation.
+
+```{toctree}
+:hidden:
+
+docs/retrofit-kits/README
+docs/charging-stations/01-scope
+docs/range-extenders/README
+docs/portfolio/vision
+docs/shared/safety
+```
