@@ -1,5 +1,9 @@
 # 01. Scope
 
+Status: Draft
+
+Visibility: Hidden from the main navigation until the infrastructure concept is approved.
+
 ## Context
 
 The charging-stations initiative targets fleet operators and public operators who manage swap stations and shared chargers for retrofitted auto-rickshaws. It complements the range-extender product by ensuring predictable swap/charge infrastructure and integration points.

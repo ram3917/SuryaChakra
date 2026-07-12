@@ -1,8 +1,17 @@
 # Range Extenders
 
+Status: Draft
+
+Visibility: Hidden from the main navigation until the concept is approved.
+
 ## Product description
 
 The SuryaExtend range extender is a solar-charged reserve battery system designed to add practical daily range to retrofitted auto-rickshaws. Typical configuration: Waaree 150W semi-flex panel + MPPT + 1 kWh LFP reserve battery.
+
+## Draft concept notes
+
+- Intended for operators who want a simple, low-cost range boost without replacing the vehicle powertrain.
+- The system is still in concept review and should be treated as a draft.
 
 ## Performance assumptions
 
