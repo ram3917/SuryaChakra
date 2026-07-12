@@ -37,24 +37,19 @@ jobs:
       - name: Clone or initialize wiki repository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.wiki.git"
-          if git ls-remote "$REMOTE" >/dev/null 2>&1; then
+          OWNER="${{ github.repository_owner }}"
+          REPO_NAME="${{ github.event.repository.name }}"
+          WIKI_REPO="${OWNER}/${REPO_NAME}.wiki"
+          REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${WIKI_REPO}.git"
+
+          if gh repo view "$WIKI_REPO" >/dev/null 2>&1; then
             git clone "$REMOTE" wiki
           else
-            mkdir -p wiki
-            cd wiki
-            git init
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git checkout -b master
-            echo "# Home" > Home.md
-            git add Home.md
-            git commit -m "Initialize wiki"
-            git remote add origin "$REMOTE"
-            git push -u origin master
-            cd ..
+            gh repo create "$WIKI_REPO" --public --description "Wiki for ${REPO_NAME}" >/dev/null
+            git clone "$REMOTE" wiki
           fi
 
       - name: Prepare wiki content
