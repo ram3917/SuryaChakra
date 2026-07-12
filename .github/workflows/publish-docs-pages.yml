@@ -35,10 +35,9 @@ jobs:
         run: |
           sphinx-build -b html suryaautomobiles-docs suryaautomobiles-docs/_build/html
 
-      - name: Clone or initialize wiki repository
+      - name: Clone wiki repository
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           OWNER="${{ github.repository_owner }}"
@@ -46,12 +45,12 @@ jobs:
           WIKI_REPO="${OWNER}/${REPO_NAME}.wiki"
           REMOTE="https://x-access-token:${GITHUB_TOKEN}@github.com/${WIKI_REPO}.git"
 
-          if gh repo view "$WIKI_REPO" >/dev/null 2>&1; then
-            git clone "$REMOTE" wiki
-          else
-            gh repo create "$WIKI_REPO" --public --description "Wiki for ${REPO_NAME}" >/dev/null
-            git clone "$REMOTE" wiki
-          fi
+          git ls-remote "$REMOTE" >/dev/null 2>&1 || {
+            echo "Wiki repository ${WIKI_REPO} does not exist yet. Create it in GitHub first, then rerun the workflow." >&2
+            exit 1
+          }
+
+          git clone "$REMOTE" wiki
 
       - name: Prepare wiki content
         shell: bash
