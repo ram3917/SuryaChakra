@@ -4,18 +4,13 @@ This site collects the product, engineering, and operations documentation for th
 
 ![Surya Chakra logo](../suryachakra_logo.jpeg)
 
-## Main products
-
-- [Retrofit Kits](docs/retrofit-kits/README.md) — active product guide.
-- Charging Stations — draft concept, hidden from the main navigation.
-- Range Extenders — draft concept, hidden from the main navigation.
-
 ```{toctree}
 :hidden:
 
-docs/retrofit-kits/README
-docs/charging-stations/01-scope
-docs/range-extenders/README
-docs/portfolio/vision
-docs/shared/safety
+docs/streamlit-dashboard
 ```
+
+## Main product
+
+- [System Overview](docs/suryaEV/SystemOverview.md) — mission, vision, and architecture overview.
+- [Streamlit Pricing Dashboard](docs/streamlit-dashboard.md) — simple price point calculator for the product bundle.
