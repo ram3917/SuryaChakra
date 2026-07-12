@@ -4,7 +4,7 @@ SuryaChakra is building a practical clean-mobility ecosystem for India’s last-
 
 The vision is simple: every small commercial vehicle should be able to operate with lower cost, lower emissions, and greater energy independence. SuryaChakra aims to create a system that helps drivers, fleet operators, and local entrepreneurs transition from fuel dependence to cleaner, more reliable electric operation.
 
-![Final product concept](../../../surya_chakra_product_imagination.png)
+![Final product concept](../_images/surya_chakra_product_imagination.png)
 
 ## The system in one view
 
