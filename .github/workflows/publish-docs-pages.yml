@@ -11,7 +11,8 @@ on:
 
 permissions:
   contents: write
-  repo: write
+  pages: write
+  wiki: write
 
 jobs:
   publish-wiki:
